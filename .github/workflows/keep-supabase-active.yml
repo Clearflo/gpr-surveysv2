@@ -1,0 +1,36 @@
+name: Keep Supabase Active
+
+on:
+  schedule:
+    # Run every 5 days at 10:00 AM UTC
+    - cron: '0 10 */5 * *'
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  ping-supabase:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Keep Supabase Active
+      env:
+        SUPABASE_URL: https://jddrnhbrsqprknlekrqu.supabase.co
+        SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+      run: |
+        # Simple curl request to insert a record into keep_alive table
+        curl -X POST "$SUPABASE_URL/rest/v1/keep_alive" \
+          -H "apikey: $SUPABASE_ANON_KEY" \
+          -H "Authorization: Bearer $SUPABASE_ANON_KEY" \
+          -H "Content-Type: application/json" \
+          -H "Prefer: return=minimal" \
+          -d '{"source": "github-action"}'
+        
+        echo "✅ Successfully pinged Supabase to keep project active"
+        
+        # Optional: Query the table to verify it's working
+        echo "Checking recent pings..."
+        curl -X GET "$SUPABASE_URL/rest/v1/keep_alive?select=*&order=pinged_at.desc&limit=5" \
+          -H "apikey: $SUPABASE_ANON_KEY" \
+          -H "Authorization: Bearer $SUPABASE_ANON_KEY"

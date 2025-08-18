@@ -1,0 +1,420 @@
+/* Import Typography - Must be first */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Section Gradients */
+.section-gradient {
+  position: relative;
+  overflow: hidden;
+}
+
+.section-gradient::before {
+  content: '';
+  position: absolute;
+  inset: -50px;
+  background: linear-gradient(45deg, rgba(240, 247, 255, 0.85), rgba(255, 255, 255, 0.75));
+  z-index: 0;
+}
+
+.section-gradient-alt {
+  position: relative;
+  overflow: hidden;
+}
+
+.section-gradient-alt::before {
+  content: '';
+  position: absolute;
+  inset: -50px;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.75), rgba(240, 247, 255, 0.85));
+  z-index: 0;
+}
+
+/* Diagonal Pattern */
+.diagonal-pattern {
+  position: relative;
+}
+
+.diagonal-pattern::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(30, 58, 138, 0.25) 0px,
+    rgba(30, 58, 138, 0.25) 1.5px,
+    transparent 1.5px,
+    transparent 40px
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+.diagonal-pattern-alt {
+  position: relative;
+}
+
+.diagonal-pattern-alt::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(30, 58, 138, 0.25) 0px,
+    rgba(30, 58, 138, 0.25) 1.5px,
+    transparent 1.5px,
+    transparent 40px
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Section Transitions */
+.section-transition {
+  position: relative;
+}
+
+.section-transition::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), transparent);
+  filter: blur(2px);
+  z-index: 2;
+}
+
+/* Content Layer */
+.content-layer {
+  position: relative;
+  z-index: 3;
+}
+
+/* Global Background Gradient */
+body {
+  @apply relative min-h-screen;
+  background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%);
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(315deg, #ffffff 0%, #f0f7ff 100%);
+  z-index: -2;
+  pointer-events: none;
+}
+
+/* Ensure content stays above gradient */
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+/* Base Typography */
+@layer base {
+  body {
+    @apply font-body text-gray-900 leading-relaxed;
+  }
+  
+  /* Ensure text contrast */
+  .section-gradient h1,
+  .section-gradient h2,
+  .section-gradient h3,
+  .section-gradient p {
+    @apply relative z-10;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.1);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-bold;
+  }
+
+  /* Ensure text remains readable on gradient */
+  h1, h2, h3, h4, h5, h6, p {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Hero sections */
+  [class*="hero"] h1,
+  [class*="hero"] h2,
+  [class*="hero"] h3,
+  [class*="hero"] h4,
+  [class*="hero"] h5,
+  [class*="hero"] h6 {
+    @apply text-white;
+  }
+
+  /* Dark backgrounds */
+  .bg-blue-900 h1, .bg-gray-900 h1,
+  .bg-blue-900 h2, .bg-gray-900 h2,
+  .bg-blue-900 h3, .bg-gray-900 h3 {
+    @apply text-white;
+  }
+
+  /* Paragraph text */
+  p {
+    @apply text-gray-900;
+  }
+
+  /* Dark background text */
+  .bg-blue-900 p, .bg-gray-900 p {
+    @apply text-gray-200;
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl uppercase tracking-wide text-white;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl uppercase tracking-wide;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl uppercase tracking-wide;
+  }
+
+  p {
+    @apply mb-4;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 
+    text-white bg-blue-900 hover:bg-blue-800 font-semibold
+    transition-all duration-300 ease-out relative
+    hover:shadow-industrial-hover
+    active:scale-[0.98] active:shadow-md overflow-hidden
+    focus:outline-none focus:ring-2 focus:ring-blue-900 focus:ring-offset-2
+    before:content-[''] before:absolute before:inset-0 before:border-2 
+    before:border-yellow-500/20 shadow-industrial;
+  }
+  
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 
+    text-white bg-[#fd8800] hover:bg-[#e67a00] font-semibold
+    transition-all duration-300 ease-out relative
+    hover:shadow-industrial-hover border-2 border-transparent
+    active:scale-[0.98] active:shadow-md overflow-hidden
+    focus:outline-none focus:ring-2 focus:ring-[#fd8800] focus:ring-offset-2
+    before:content-[''] before:absolute before:inset-0 before:border-2 
+    before:border-[#fd8800]/20 before:rounded-sm shadow-industrial;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center px-6 py-3 
+    text-blue-900 bg-white hover:bg-gray-50 font-semibold
+    transition-all duration-300 ease-out relative
+    hover:shadow-industrial-hover border-2 border-blue-900
+    active:scale-[0.98] active:shadow-md overflow-hidden
+    focus:outline-none focus:ring-2 focus:ring-blue-900 focus:ring-offset-2;
+  }
+}
+
+/* Construction-themed Patterns */
+.diagonal-gradient-right {
+  position: relative;
+  overflow: hidden;
+}
+
+.diagonal-gradient-right::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #f0f7ff 33%, transparent 33%);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.diagonal-gradient-left {
+  position: relative;
+  overflow: hidden;
+}
+
+.diagonal-gradient-left::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(225deg, #f0f7ff 33%, transparent 33%);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.blueprint-grid {
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, .05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, .05) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.diagonal-stripes {
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 0.05),
+    rgba(0, 0, 0, 0.05) 10px,
+    rgba(0, 0, 0, 0.08) 10px,
+    rgba(0, 0, 0, 0.08) 20px
+  );
+}
+
+/* Card Styles */
+.industrial-card {
+  @apply relative overflow-hidden border-2 border-blue-900/10 bg-white;
+  box-shadow: 6px 6px 0 rgba(30, 58, 138, 0.1);
+}
+
+.industrial-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: #0066cc;
+  transition: transform 0.3s ease-in-out;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.industrial-card:hover::before {
+  background: #ff6600;
+  transform: scaleX(1);
+}
+
+.industrial-card .learn-more-btn {
+  @apply inline-flex items-center text-[#0066cc] font-medium transition-all duration-300;
+}
+
+.industrial-card:hover .learn-more-btn {
+  @apply text-[#ff6600];
+}
+
+.industrial-card:hover {
+  @apply shadow-lg transform -translate-y-1;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Construction-themed Sections */
+.blueprint-section {
+  @apply relative overflow-hidden;
+  @apply bg-construction-pattern;
+}
+
+.industrial-section {
+  @apply relative overflow-hidden;
+  @apply bg-diagonal-lines;
+}
+
+/* Construction-themed Buttons */
+.btn-industrial {
+  @apply btn-primary;
+}
+
+.btn-industrial::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-industrial:hover {
+  transform: translate(-2px, -2px);
+  @apply shadow-industrial-hover;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.animation-delay-200 {
+  animation-delay: 200ms;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-down {
+  animation: slideDown 0.5s ease-out forwards;
+}
+
+/* Additional utility classes for the weekly calendar view */
+.text-xxs {
+  font-size: 0.65rem;
+  line-height: 0.9rem;
+}
+
+/* Day label styles for weekly calendar */
+.day-label {
+  @apply text-xs font-medium text-gray-700;
+}
+
+/* Time slot styles for weekly calendar */
+.time-slot {
+  @apply text-xs border border-gray-200 p-1 rounded;
+}
+
+/* Booking card styles for weekly calendar */
+.booking-card {
+  @apply text-xs bg-blue-50 border border-blue-200 p-1 rounded shadow-sm;
+}
+
+/* Hover effects for interactive elements */
+.calendar-interactive:hover {
+  @apply bg-gray-50;
+}
+
+/* Navbar dropdown transition improvements */
+.navbar-dropdown {
+  @apply transition-all duration-500 ease-in-out;
+  transform-origin: top;
+  will-change: transform, opacity;
+}
+
+.navbar-dropdown-enter {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.navbar-dropdown-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 400ms ease-in-out, transform 400ms ease-in-out;
+}
+
+.navbar-dropdown-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.navbar-dropdown-exit-active {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 400ms ease-in-out, transform 400ms ease-in-out;
+}
