@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { ArrowRight, Edit } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -6,31 +6,6 @@ import HeroCarousel from '../HeroCarousel';
 
 const HeroSection = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    // Ensure video plays smoothly
-    const handleVideoEnd = () => {
-      video.currentTime = 0;
-      video.play().catch(error => {
-        console.error('Video playback failed:', error);
-      });
-    };
-
-    // Add event listener for when video ends
-    video.addEventListener('ended', handleVideoEnd);
-
-    // Start playing the video
-    video.play().catch(error => {
-      console.error('Initial video playback failed:', error);
-    });
-
-    return () => {
-      video.removeEventListener('ended', handleVideoEnd);
-    };
-  }, []);
 
   // Fade-in animation variants
   const fadeInUp = {
@@ -49,6 +24,7 @@ const HeroSection = () => {
         autoPlay
         muted
         playsInline
+        loop
         preload="auto"
         className="absolute inset-0 w-full h-full object-cover"
         poster="/Assests/gpr-surverys-hero-image.jpg"
