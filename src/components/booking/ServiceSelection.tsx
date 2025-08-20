@@ -1,5 +1,4 @@
 import React from 'react';
-import { SERVICES } from '../../constants/services';
 import { BookingFormData } from '../../types/form.types';
 import BookingCalendar from '../BookingCalendar';
 import FileUpload from './FileUpload';
@@ -31,20 +30,35 @@ const ServiceSelection: React.FC<ServiceSelectionProps> = ({
         <label className="block text-sm font-medium text-gray-700 mb-1">
           Service Type
         </label>
-        <select
-          value={formData.service}
-          onChange={(e) => onFormDataChange({ service: e.target.value })}
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-          required
-        >
-          <option value="">Select a service</option>
-          {SERVICES.map((service) => (
-            <option key={service.value} value={service.value}>
-              {service.label}
-            </option>
-          ))}
-        </select>
-        
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-stretch">
+          <button
+            type="button"
+            aria-pressed={formData.service === 'Underground Storage Tank UST Detection'}
+            onClick={() => onFormDataChange({ service: 'Underground Storage Tank UST Detection' })}
+            className={`btn-primary text-base px-6 w-full h-20 whitespace-normal leading-snug ${
+              formData.service === 'Underground Storage Tank UST Detection' ? 'ring-2 ring-blue-500' : ''
+            }`}
+          >
+            Underground Storage Tank UST Detection
+          </button>
+          <button
+            type="button"
+            aria-pressed={formData.service === 'Utility Locate & GPR Scanning'}
+            onClick={() => onFormDataChange({ service: 'Utility Locate & GPR Scanning' })}
+            className={`btn-secondary text-base px-6 w-full h-20 whitespace-normal leading-snug ${
+              formData.service === 'Utility Locate & GPR Scanning' ? 'ring-2 ring-orange-500' : ''
+            }`}
+          >
+            Utility Locate & GPR Scanning
+          </button>
+        </div>
+
+        {formData.service && (
+          <p className="mt-2 text-sm text-gray-600">
+            Selected: <span className="font-medium">{formData.service}</span>
+          </p>
+        )}
+
         {/* Special inquiries message */}
         <div className="mt-3 flex items-start">
           <Phone className="w-4 h-4 text-blue-600 mt-0.5 mr-2 flex-shrink-0" />

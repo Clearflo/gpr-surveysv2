@@ -1,11 +1,10 @@
-import React, { useRef } from 'react';
+// React import not required with the new JSX transform
 import { ArrowRight, Edit } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import HeroCarousel from '../HeroCarousel';
 
 const HeroSection = () => {
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   // Fade-in animation variants
   const fadeInUp = {
@@ -19,19 +18,12 @@ const HeroSection = () => {
 
   return (
     <div className="relative h-screen flex items-start pt-24 md:pt-48 overflow-hidden">
-      <video
-        ref={videoRef}
-        autoPlay
-        muted
-        playsInline
-        loop
-        preload="auto"
-        className="absolute inset-0 w-full h-full object-cover"
-        poster="/Assests/gpr-surverys-hero-image.jpg"
-      >
-        <source src="/Assests/11984754_1920_1080_60fps.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      {/* Background image (replaces video) */}
+      <div
+        className="absolute inset-0 w-full h-full bg-cover bg-center"
+        style={{ backgroundImage: "url('/Assests/pexels-alex-ohan-204757441-14778868.jpg')" }}
+        aria-hidden
+      />
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80"></div>
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white text-center z-10">
         <motion.div

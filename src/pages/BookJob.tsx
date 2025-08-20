@@ -274,7 +274,16 @@ const BookJob = () => {
             <BookingSuccess onBookAnother={handleNewBooking} />
           ) : (
             <form onSubmit={handleSubmit}>
-              <ProgressSteps currentStep={currentStep} />
+              <ProgressSteps
+                currentStep={currentStep}
+                onStepClick={(step) => {
+                  if (step < currentStep) {
+                    setCurrentStep(step);
+                    setError(null);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }
+                }}
+              />
 
               {error && (
                 <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-800">

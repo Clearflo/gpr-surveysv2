@@ -172,7 +172,7 @@ const SiteInfo: React.FC<SiteInfoProps> = ({
           onChange={(e) => onFormDataChange({ notes: e.target.value })}
           rows={4}
           className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-          placeholder="Any additional information about the site..."
+          placeholder="Please include any additional project notes, such as meeting, location, gates, or access codes, and any site-specific or public sensitivities"
         />
       </div>
     </div>
